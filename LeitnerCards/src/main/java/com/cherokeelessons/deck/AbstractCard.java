@@ -1,94 +1,86 @@
 package com.cherokeelessons.deck;
 
-public abstract class AbstractCard<T> implements ICard<T> {
+public abstract class AbstractCard<T extends CardData> implements Card<T> {
+	protected T data;
+	protected Deck<T> myDeck;
+	protected int leitnerIntervalBox;
+	protected int pimsleurIntervalSlot;
+	protected long showAgainDelay_ms;
+	protected int triesRemaining;
+	protected boolean correct;
 
 	@Override
 	public T getData() {
-		// TODO Auto-generated method stub
-		return null;
+		return data;
 	}
 
 	@Override
-	public Deck<T> getDeck() {
-		// TODO Auto-generated method stub
-		return null;
+	public Deck<T> getMyDeck() {
+		return myDeck;
 	}
 
 	@Override
 	public int getNextLeitnerInterval() {
-		// TODO Auto-generated method stub
-		return 0;
+		return leitnerIntervalBox;
 	}
 
 	@Override
 	public int getPimsleurSlot() {
-		// TODO Auto-generated method stub
-		return 0;
+		return pimsleurIntervalSlot;
 	}
 
 	@Override
 	public long getShowAgainDelay() {
-		// TODO Auto-generated method stub
-		return 0;
+		return showAgainDelay_ms;
 	}
 
 	@Override
 	public int getTriesRemaining() {
-		// TODO Auto-generated method stub
-		return 0;
+		return triesRemaining;
 	}
 
 	@Override
 	public boolean isCorrect() {
-		// TODO Auto-generated method stub
-		return false;
+		return correct;
 	}
 
 	@Override
 	public void setCorrect(boolean correct) {
-		// TODO Auto-generated method stub
-		
+		this.correct = correct;
 	}
 
 	@Override
 	public void setData(T data) {
-		// TODO Auto-generated method stub
-		
+		this.data = data;
 	}
 
 	@Override
-	public void setDeck(Deck<T> deck) {
-		// TODO Auto-generated method stub
-		
+	public void setMyDeck(Deck<T> deck) {
+		this.myDeck = deck;
 	}
 
 	@Override
 	public void setLeitnerBox(int box) {
-		// TODO Auto-generated method stub
-		
+		this.leitnerIntervalBox = box;
 	}
 
 	@Override
 	public void setNextPimsleurInterval(int interval) {
-		// TODO Auto-generated method stub
-		
+		this.pimsleurIntervalSlot = interval;
 	}
 
 	@Override
 	public void setShowAgainDelay(long ms) {
-		// TODO Auto-generated method stub
-		
+		this.showAgainDelay_ms = ms;
 	}
 
 	@Override
 	public void setTriesRemaining(int triesRemaining) {
-		// TODO Auto-generated method stub
-		
+		this.triesRemaining = triesRemaining;
 	}
 
 	@Override
 	public String sortKey() {
-		// TODO Auto-generated method stub
-		return null;
+		return data.sortKey();
 	}
 }
