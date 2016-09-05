@@ -1,6 +1,6 @@
 package com.cherokeelessons.deck;
 
-public interface Card<T extends CardData> extends Comparable<Card<T>> {
+public interface Card<T extends ICardData> extends Comparable<Card<T>> {
 
 	@Override
 	default int compareTo(Card<T> o) {

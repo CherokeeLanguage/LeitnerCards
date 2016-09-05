@@ -1,5 +1,5 @@
 package com.cherokeelessons.deck;
 
-public interface CardData {
+public interface ICardData {
 	public String sortKey();
 }

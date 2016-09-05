@@ -1,6 +1,6 @@
 package com.cherokeelessons.deck;
 
-public abstract class AbstractCard<T extends CardData> implements Card<T> {
+public abstract class AbstractCard<T extends ICardData> implements Card<T> {
 	protected T data;
 	protected Deck<T> myDeck;
 	protected int leitnerIntervalBox;

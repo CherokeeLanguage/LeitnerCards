@@ -3,7 +3,7 @@ package com.cherokeelessons.deck;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deck<T extends CardData> {
+public class Deck<T extends ICardData> {
 	public Deck() {
 		cards = new ArrayList<>();
 	}
