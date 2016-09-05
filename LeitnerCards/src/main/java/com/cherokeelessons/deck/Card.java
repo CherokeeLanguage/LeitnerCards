@@ -1,49 +1,86 @@
 package com.cherokeelessons.deck;
 
-public interface Card<T extends ICardData> extends Comparable<Card<T>> {
+public abstract class Card<T extends ICardData> implements ICard<T> {
+	protected T data;
+	protected Deck<T> myDeck;
+	protected int leitnerIntervalBox;
+	protected int pimsleurIntervalSlot;
+	protected long showAgainDelay_ms;
+	protected int triesRemaining;
+	protected boolean correct;
 
 	@Override
-	default int compareTo(Card<T> o) {
-		if (o == null) {
-			return -1;
-		}
-		return sortKey().compareTo(o.sortKey());
+	public T getData() {
+		return data;
 	}
 
-	default boolean equals(Card<T> obj) {
-		if (obj == null || !(obj instanceof Card)) {
-			return false;
-		}
-		return sortKey().equals(((Card<T>) obj).sortKey());
+	@Override
+	public Deck<T> getMyDeck() {
+		return myDeck;
 	}
 
-	T getData();
+	@Override
+	public int getNextLeitnerInterval() {
+		return leitnerIntervalBox;
+	}
 
-	Deck<T> getMyDeck();
+	@Override
+	public int getPimsleurSlot() {
+		return pimsleurIntervalSlot;
+	}
 
-	int getNextLeitnerInterval();
+	@Override
+	public long getShowAgainDelay() {
+		return showAgainDelay_ms;
+	}
 
-	int getPimsleurSlot();
+	@Override
+	public int getTriesRemaining() {
+		return triesRemaining;
+	}
 
-	long getShowAgainDelay();
+	@Override
+	public boolean isCorrect() {
+		return correct;
+	}
 
-	int getTriesRemaining();
+	@Override
+	public void setCorrect(boolean correct) {
+		this.correct = correct;
+	}
 
-	boolean isCorrect();
+	@Override
+	public void setData(T data) {
+		this.data = data;
+	}
 
-	void setCorrect(boolean correct);
+	@Override
+	public void setMyDeck(Deck<T> deck) {
+		this.myDeck = deck;
+	}
 
-	void setData(T data);
+	@Override
+	public void setLeitnerBox(int box) {
+		this.leitnerIntervalBox = box;
+	}
 
-	void setMyDeck(Deck<T> deck);
+	@Override
+	public void setNextPimsleurInterval(int interval) {
+		this.pimsleurIntervalSlot = interval;
+	}
 
-	void setLeitnerBox(int box);
+	@Override
+	public void setShowAgainDelay(long ms) {
+		this.showAgainDelay_ms = ms;
+	}
 
-	void setNextPimsleurInterval(int interval);
+	@Override
+	public void setTriesRemaining(int triesRemaining) {
+		this.triesRemaining = triesRemaining;
+	}
 
-	void setShowAgainDelay(long ms);
-
-	void setTriesRemaining(int triesRemaining);
-
-	String sortKey();
+	@Override
+	public String sortKey() {
+		return data.sortKey();
+	}
 }

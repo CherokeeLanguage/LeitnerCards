@@ -8,14 +8,14 @@ public class Deck<T extends ICardData> {
 		cards = new ArrayList<>();
 	}
 
-	protected List<Card<T>> cards;
+	protected List<ICard<T>> cards;
 
-	public void add(Card<T> card) {
+	public void add(ICard<T> card) {
 		card.getMyDeck().remove(card);
 		cards.add(card);
 	}
 
-	public void remove(Card<T> card) {
+	public void remove(ICard<T> card) {
 		cards.remove(card);
 	}
 }
