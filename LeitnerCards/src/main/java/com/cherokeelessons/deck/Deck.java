@@ -28,6 +28,10 @@ public class Deck<T extends ICardData> {
 		cards.remove(card);
 	}
 
+	/**
+	 * Current count of cards in the deck.
+	 * @return
+	 */
 	public int size() {
 		return cards.size();
 	}
@@ -51,7 +55,7 @@ public class Deck<T extends ICardData> {
 	}
 
 	/**
-	 * Peek at the next available card from the deck. <br/>
+	 * Peek at the next available card on the deck. <br/>
 	 * 
 	 * @return
 	 */
@@ -61,17 +65,13 @@ public class Deck<T extends ICardData> {
 
 	/**
 	 * Shuffle. (GWT safe method.)
+	 *  <br/> Uses same random access algorithm as OpenJDK's {@linkplain Collections#shuffle(List, Random)}
 	 */
 	public void shuffle(long seed) {
 		Random r = new Random(seed);
-		for (int i = 0; i < cards.size(); i++) {
-			int j = r.nextInt(cards.size());
-			if (i == j) {
-				continue;
-			}
-			ICard<T> tmpCard = cards.get(i);
-			cards.set(i, cards.get(j));
-			cards.set(j, tmpCard);
+		for (int i = cards.size(); i>1; i--) {
+			int j = r.nextInt(i);
+			cards.set(i, cards.set(j, cards.get(i)));
 		}
 	}
 
