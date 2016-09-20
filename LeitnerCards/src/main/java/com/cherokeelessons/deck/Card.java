@@ -83,4 +83,9 @@ public class Card<T extends ICardData> implements ICard<T> {
 	public String sortKey() {
 		return data.sortKey();
 	}
+
+	@Override
+	public boolean isInDeck() {
+		return (this.myDeck!=null) && this.myDeck.cards.contains(this); 
+	}
 }

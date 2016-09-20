@@ -46,4 +46,6 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 	void setTriesRemaining(int triesRemaining);
 
 	String sortKey();
+
+	boolean isInDeck();
 }
