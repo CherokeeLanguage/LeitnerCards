@@ -69,9 +69,9 @@ public class Deck<T extends ICardData> {
 	 */
 	public void shuffle(long seed) {
 		Random r = new Random(seed);
-		for (int i = cards.size()-1; i>1; i--) {
+		for (int i = cards.size(); i>1; i--) {
 			int j = r.nextInt(i);
-			cards.set(i, cards.set(j, cards.get(i)));
+			cards.set(i-1, cards.set(j, cards.get(i-1)));
 		}
 	}
 
