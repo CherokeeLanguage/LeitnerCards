@@ -5,12 +5,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Random;
 
 public class Deck<T extends ICardData> {
 	public Deck() {
 		cards = new ArrayList<>();
+	}
+	
+	public ListIterator<ICard<T>> cardsIterator(){
+		return cards.listIterator();
 	}
 
 	protected List<ICard<T>> cards;
