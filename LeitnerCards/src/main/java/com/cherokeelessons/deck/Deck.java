@@ -141,4 +141,6 @@ public class Deck<T extends ICardData> {
 	public void reverse(){
 		Collections.reverse(cards);
 	}
+	
+	
 }
