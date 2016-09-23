@@ -48,4 +48,16 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 	String sortKey();
 
 	boolean isInDeck();
+
+	void setTotalShownTime(float totalShownTime);
+
+	void setShown(int shown);
+
+	void setShowAgainDelay_ms(long showAgainDelay_ms);
+
+	float getTotalShownTime();
+
+	int getShown();
+
+	long getShowAgainDelay_ms();
 }

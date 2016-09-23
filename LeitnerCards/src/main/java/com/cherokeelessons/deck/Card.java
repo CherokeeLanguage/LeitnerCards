@@ -46,13 +46,17 @@ public class Card<T extends ICardData> implements ICard<T> {
 		return showAgainDelay_ms;
 	}
 
+	@Override
 	public long getShowAgainDelay_ms() {
 		return showAgainDelay_ms;
 	}
 
+	@Override
 	public int getShown() {
 		return shown;
 	}
+	
+	@Override
 	public float getTotalShownTime() {
 		return totalShownTime;
 	}
@@ -102,14 +106,17 @@ public class Card<T extends ICardData> implements ICard<T> {
 		this.showAgainDelay_ms = ms;
 	}
 
+	@Override
 	public void setShowAgainDelay_ms(long showAgainDelay_ms) {
 		this.showAgainDelay_ms = showAgainDelay_ms;
 	}
 
+	@Override
 	public void setShown(int shown) {
 		this.shown = shown;
 	}
 
+	@Override
 	public void setTotalShownTime(float totalShownTime) {
 		this.totalShownTime = totalShownTime;
 	}
