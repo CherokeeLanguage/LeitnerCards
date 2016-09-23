@@ -21,7 +21,7 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 
 	Deck<T> getMyDeck();
 
-	int getNextLeitnerInterval();
+	int getLeitnerBox();
 
 	int getPimsleurSlot();
 
@@ -39,7 +39,7 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 
 	void setLeitnerBox(int box);
 
-	void setNextPimsleurInterval(int interval);
+	void setPimsleurSlot(int interval);
 
 	void setShowAgainDelay(long ms);
 

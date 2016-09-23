@@ -3,8 +3,8 @@ package com.cherokeelessons.deck;
 public class Card<T extends ICardData> implements ICard<T> {
 	protected T data;
 	protected Deck<T> myDeck;
-	protected int leitnerIntervalBox;
-	protected int pimsleurIntervalSlot;
+	protected int leitnerBox;
+	protected int pimsleurSlot;
 	protected long showAgainDelay_ms;
 	protected int triesRemaining;
 	protected boolean correct;
@@ -20,13 +20,13 @@ public class Card<T extends ICardData> implements ICard<T> {
 	}
 
 	@Override
-	public int getNextLeitnerInterval() {
-		return leitnerIntervalBox;
+	public int getLeitnerBox() {
+		return leitnerBox;
 	}
 
 	@Override
 	public int getPimsleurSlot() {
-		return pimsleurIntervalSlot;
+		return pimsleurSlot;
 	}
 
 	@Override
@@ -61,12 +61,12 @@ public class Card<T extends ICardData> implements ICard<T> {
 
 	@Override
 	public void setLeitnerBox(int box) {
-		this.leitnerIntervalBox = box;
+		this.leitnerBox = box;
 	}
 
 	@Override
-	public void setNextPimsleurInterval(int interval) {
-		this.pimsleurIntervalSlot = interval;
+	public void setPimsleurSlot(int slot) {
+		this.pimsleurSlot = slot;
 	}
 
 	@Override
