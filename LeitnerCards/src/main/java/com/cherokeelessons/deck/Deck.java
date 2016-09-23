@@ -17,6 +17,10 @@ public class Deck<T extends ICardData> {
 	public ListIterator<ICard<T>> cardsIterator(){
 		return cards.listIterator();
 	}
+	
+	public List<ICard<T>> getCards(){
+		return cards;
+	}
 
 	protected List<ICard<T>> cards;
 
