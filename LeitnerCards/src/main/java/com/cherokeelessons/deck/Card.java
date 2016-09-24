@@ -17,6 +17,7 @@ public class Card<T extends ICardData> implements ICard<T> {
 		this.cardStats = cardStats;
 	}
 
+	@Override
 	public void resetStats(){
 		cardStats.setCorrect(true);
 		cardStats.setShown(0);
@@ -185,6 +186,7 @@ public class Card<T extends ICardData> implements ICard<T> {
 		return 1;
 	};
 
+	@Override
 	public void resetTriesRemaining() {
 		setTriesRemaining(getMyNextSessionThreshold());
 	}

@@ -58,4 +58,8 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 	String sortKey();
 
 	boolean equals(ICard<T> obj);
+
+	void resetStats();
+
+	void resetTriesRemaining();
 }
