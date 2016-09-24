@@ -13,12 +13,12 @@ public class Deck<T extends ICardData> {
 	public Deck() {
 		cards = new ArrayList<>();
 	}
-	
-	public ListIterator<ICard<T>> cardsIterator(){
+
+	public ListIterator<ICard<T>> cardsIterator() {
 		return cards.listIterator();
 	}
-	
-	public List<ICard<T>> getCards(){
+
+	public List<ICard<T>> getCards() {
 		return cards;
 	}
 
@@ -39,6 +39,7 @@ public class Deck<T extends ICardData> {
 
 	/**
 	 * Current count of cards in the deck.
+	 * 
 	 * @return
 	 */
 	public int size() {
@@ -73,14 +74,15 @@ public class Deck<T extends ICardData> {
 	}
 
 	/**
-	 * Shuffle. (GWT safe method.)
-	 *  <br/> Uses same random access algorithm as OpenJDK's {@linkplain Collections#shuffle(List, Random)}
+	 * Shuffle. (GWT safe method.) <br/>
+	 * Uses same random access algorithm as OpenJDK's
+	 * {@linkplain Collections#shuffle(List, Random)}
 	 */
 	public void shuffle(long seed) {
 		Random r = new Random(seed);
-		for (int i = cards.size(); i>1; i--) {
+		for (int i = cards.size(); i > 1; i--) {
 			int j = r.nextInt(i);
-			cards.set(i-1, cards.set(j, cards.get(i-1)));
+			cards.set(i - 1, cards.set(j, cards.get(i - 1)));
 		}
 	}
 
@@ -106,41 +108,67 @@ public class Deck<T extends ICardData> {
 	 */
 	public void sort(final int keyLength) {
 		Collections.sort(cards, new Comparator<ICard<T>>() {
-			Map<ICard<T>, String> prefixCache=new HashMap<>();
+			Map<ICard<T>, String> prefixCache = new HashMap<>();
+
 			@Override
 			public int compare(ICard<T> o1, ICard<T> o2) {
-				if (o1==o2) {
+				if (o1 == o2) {
 					return 0;
 				}
-				if (o1==null) {
+				if (o1 == null) {
 					return -1;
 				}
-				if (o2==null) {
+				if (o2 == null) {
 					return 1;
 				}
 				String key1 = prefixCache.get(o1);
-				if (key1==null) {
-					key1=o1.sortKey();
-					key1=key1.substring(0, Math.min(keyLength, key1.length()));
+				if (key1 == null) {
+					key1 = o1.sortKey();
+					key1 = key1.substring(0, Math.min(keyLength, key1.length()));
 					prefixCache.put(o1, key1);
 				}
 				String key2 = prefixCache.get(o2);
-				if (key2==null) {
-					key2=o2.sortKey();
-					key2=key2.substring(0, Math.min(keyLength, key2.length()));
+				if (key2 == null) {
+					key2 = o2.sortKey();
+					key2 = key2.substring(0, Math.min(keyLength, key2.length()));
 					prefixCache.put(o2, key2);
 				}
 				return key1.compareTo(key2);
 			}
 		});
 	}
-	
+
+	/**
+	 * Shuffle and sort deck based on the next session it it schedule for.<br/>
+	 * First shuffles the deck, then sorts by the group identifier's length,
+	 * finally sorts by what session the card should be seen in next.
+	 */
+	public void shuffleAndSortForPlay(final int keyLength) {
+		this.shuffle();
+		this.sort(keyLength);
+
+		Collections.sort(cards, new Comparator<ICard<T>>() {
+			@Override
+			public int compare(ICard<T> o1, ICard<T> o2) {
+				if (o1 == o2) {
+					return 0;
+				}
+				if (o1 == null) {
+					return -1;
+				}
+				if (o2 == null) {
+					return 1;
+				}
+				return o1.getNextSessionShow() - o2.getNextSessionShow();
+			}
+		});
+	}
+
 	/**
 	 * Reverse the order of the deck.
 	 */
-	public void reverse(){
+	public void reverse() {
 		Collections.reverse(cards);
 	}
-	
-	
+
 }

@@ -9,9 +9,8 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 	 */
 	public ICard<T> copy();
 
-	public int getShowAgainSessions();
-	public void setShowAgainSessions(int sessions);
-	public void decShowAgainSessions();
+	public int getNextSessionShow();
+	public void setNextSessionShow(int sessions);
 
 	CardStats getCardStats();
 

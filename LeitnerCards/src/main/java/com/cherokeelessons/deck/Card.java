@@ -139,24 +139,17 @@ public class Card<T extends ICardData> implements ICard<T> {
 		return copy;
 	}
 
+	protected int nextSessionShow;
 	@Override
-	public int getShowAgainSessions() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getNextSessionShow() {
+		return nextSessionShow;
 	}
 
 	@Override
-	public void setShowAgainSessions(int sessions) {
-		// TODO Auto-generated method stub
-		
+	public void setNextSessionShow(int nextSessionShow) {
+		this.nextSessionShow=nextSessionShow;
 	}
 
-	@Override
-	public void decShowAgainSessions() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	@Override
 	public int compareTo(ICard<T> o) {
 		if (o == null) {
