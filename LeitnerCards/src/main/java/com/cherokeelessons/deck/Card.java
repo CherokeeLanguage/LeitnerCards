@@ -27,6 +27,7 @@ public class Card<T extends ICardData> implements ICard<T> {
 		return data;
 	}
 	
+	@Override
 	public String id(){
 		return data==null?null:data.id();
 	}
@@ -44,11 +45,6 @@ public class Card<T extends ICardData> implements ICard<T> {
 	@Override
 	public int getPimsleurSlot() {
 		return pimsleurSlot;
-	}
-
-	@Override
-	public long getShowAgainDelay() {
-		return showAgainDelay_ms;
 	}
 
 	@Override
@@ -104,11 +100,6 @@ public class Card<T extends ICardData> implements ICard<T> {
 	@Override
 	public void setPimsleurSlot(int slot) {
 		this.pimsleurSlot = slot;
-	}
-
-	@Override
-	public void setShowAgainDelay(long ms) {
-		this.showAgainDelay_ms = ms;
 	}
 
 	@Override

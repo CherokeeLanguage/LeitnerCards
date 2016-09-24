@@ -33,8 +33,6 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 
 	int getPimsleurSlot();
 
-	long getShowAgainDelay();
-
 	int getTriesRemaining();
 
 	boolean isCorrect();
@@ -48,8 +46,6 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 	void setLeitnerBox(int box);
 
 	void setPimsleurSlot(int interval);
-
-	void setShowAgainDelay(long ms);
 
 	void setTriesRemaining(int triesRemaining);
 
@@ -68,4 +64,6 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 	int getShown();
 
 	long getShowAgainDelay_ms();
+
+	String id();
 }
