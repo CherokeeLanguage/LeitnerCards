@@ -138,4 +138,38 @@ public class Card<T extends ICardData> implements ICard<T> {
 		copy.myDeck=null;
 		return copy;
 	}
+
+	@Override
+	public int getShowAgainSessions() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setShowAgainSessions(int sessions) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void decShowAgainSessions() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public int compareTo(ICard<T> o) {
+		if (o == null) {
+			return -1;
+		}
+		return sortKey().compareTo(o.sortKey());
+	}
+
+	@Override
+	public boolean equals(ICard<T> obj) {
+		if (obj == null || !(obj instanceof ICard)) {
+			return false;
+		}
+		return sortKey().equals(((ICard<T>) obj).sortKey());
+	}
 }

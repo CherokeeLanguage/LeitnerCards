@@ -1,7 +1,6 @@
 package com.cherokeelessons.deck;
 
 public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
-
 	/**
 	 * Returns a deep copy of the card, INCLUDING the card data. The copy does NOT
 	 * include the assigned deck of the original card!
@@ -10,63 +9,54 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 	 */
 	public ICard<T> copy();
 
-	@Override
-	default int compareTo(ICard<T> o) {
-		if (o == null) {
-			return -1;
-		}
-		return sortKey().compareTo(o.sortKey());
-	}
+	public int getShowAgainSessions();
+	public void setShowAgainSessions(int sessions);
+	public void decShowAgainSessions();
 
-	default boolean equals(ICard<T> obj) {
-		if (obj == null || !(obj instanceof ICard)) {
-			return false;
-		}
-		return sortKey().equals(((ICard<T>) obj).sortKey());
-	}
+	CardStats getCardStats();
 
 	T getData();
 
-	Deck<T> getMyDeck();
-
 	int getLeitnerBox();
+
+	Deck<T> getMyDeck();
 
 	int getPimsleurSlot();
 
+	long getShowAgainDelay_ms();
+
+	int getShown();
+
+	float getTotalShownTime();
+
 	int getTriesRemaining();
 
+	String id();
+
 	boolean isCorrect();
+
+	boolean isInDeck();
+
+	void setCardStats(CardStats cardStats);
 
 	void setCorrect(boolean correct);
 
 	void setData(T data);
 
-	void setMyDeck(Deck<T> deck);
-
 	void setLeitnerBox(int box);
+
+	void setMyDeck(Deck<T> deck);
 
 	void setPimsleurSlot(int interval);
 
-	void setTriesRemaining(int triesRemaining);
-
-	String sortKey();
-
-	boolean isInDeck();
-
-	void setTotalShownTime(float totalShownTime);
+	void setShowAgainDelay_ms(long showAgainDelay_ms);
 
 	void setShown(int shown);
 
-	void setShowAgainDelay_ms(long showAgainDelay_ms);
-
-	float getTotalShownTime();
-
-	int getShown();
-
-	long getShowAgainDelay_ms();
-
-	String id();
+	void setTotalShownTime(float totalShownTime);
 	
-	CardStats getCardStats();
-	void setCardStats(CardStats cardStats);
+	void setTriesRemaining(int triesRemaining);
+	String sortKey();
+
+	boolean equals(ICard<T> obj);
 }
