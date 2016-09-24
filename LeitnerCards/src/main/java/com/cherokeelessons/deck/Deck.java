@@ -165,7 +165,7 @@ public class Deck<T extends ICardData> {
 	 * First shuffles the deck, then sorts by the key prefix length, and finally
 	 * sorts by what session the card should be seen in next.
 	 */
-	public void shuffleAndSortForPlay(final int keyLength) {
+	public void shuffleThenSortIntoGroups(final int keyLength) {
 		this.shuffle();
 		this.sort(keyLength);
 
