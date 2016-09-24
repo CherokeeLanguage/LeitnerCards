@@ -187,6 +187,19 @@ public class Deck<T extends ICardData> {
 	}
 	
 	/**
+	 * Time-shift all cards by time indicated. (Subtracts ms from each cards' nextShowTime_ms
+	 * 
+	 * @param currentDeck
+	 */
+	public void updateTimeBy(long delayAdjust_ms) {
+		for (ICard<T> card: cards) {
+			CardStats cardStats = card.getCardStats();
+			long showAgainDelay_ms = cardStats.getShowAgainDelay_ms()-delayAdjust_ms;
+			cardStats.setShowAgainDelay_ms(showAgainDelay_ms);
+		}
+	}
+	
+	/**
 	 * Order cards in deck based on the next session each card is scheduled
 	 * for.<br/>
 	 * First shuffles the deck, then sorts by the key prefix length, and finally
