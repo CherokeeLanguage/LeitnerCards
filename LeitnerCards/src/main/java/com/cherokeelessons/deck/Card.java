@@ -165,4 +165,27 @@ public class Card<T extends ICardData> implements ICard<T> {
 		}
 		return sortKey().equals(((ICard<T>) obj).sortKey());
 	}
+	
+	/**
+	 * How many times a card must be shown in the session. <br/>
+	 * The value's pimsleur value must not exceed the sesson length or else the
+	 * card will never be successfully marked as known! <br/>
+	 * 5 minutes sessions can not have a value > 3!
+	 * 
+	 * @return
+	 */
+	protected int getMyNextSessionThreshold() {
+		int leitnerBox = getCardStats().getLeitnerBox();
+		if (leitnerBox == 0) {
+			return 3;
+		}
+		if (leitnerBox == 1) {
+			return 2;
+		}
+		return 1;
+	};
+
+	public void resetTriesRemaining() {
+		setTriesRemaining(getMyNextSessionThreshold());
+	}
 }
