@@ -11,4 +11,9 @@ public interface ICardData {
 	 * keep track of what cards are "in play" between sessions.
 	 */
 	public String id();
+	
+	/**
+	 * Returns a deep copy of this object.
+	 */
+	public ICardData copy();
 }

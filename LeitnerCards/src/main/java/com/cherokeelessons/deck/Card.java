@@ -1,6 +1,7 @@
 package com.cherokeelessons.deck;
 
 public class Card<T extends ICardData> implements ICard<T> {
+	
 	protected boolean correct;
 	protected T data;
 	protected int leitnerBox;
@@ -24,6 +25,10 @@ public class Card<T extends ICardData> implements ICard<T> {
 	@Override
 	public T getData() {
 		return data;
+	}
+	
+	public String id(){
+		return data==null?null:data.id();
 	}
 
 	@Override
@@ -129,5 +134,21 @@ public class Card<T extends ICardData> implements ICard<T> {
 	@Override
 	public String sortKey() {
 		return data.sortKey();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ICard<T> copy() {
+		Card<T> copy = new Card<>();
+		copy.correct=correct;
+		copy.data=(T) data.copy();
+		copy.leitnerBox=leitnerBox;
+		copy.myDeck=null;
+		copy.pimsleurSlot=pimsleurSlot;
+		copy.showAgainDelay_ms=showAgainDelay_ms;
+		copy.shown=shown;
+		copy.totalShownTime=totalShownTime;
+		copy.triesRemaining=triesRemaining;
+		return copy;
 	}
 }

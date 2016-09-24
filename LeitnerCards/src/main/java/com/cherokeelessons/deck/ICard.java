@@ -2,6 +2,14 @@ package com.cherokeelessons.deck;
 
 public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 
+	/**
+	 * Returns a deep copy of the card, INCLUDING the card data. The copy does NOT
+	 * include the assigned deck of the original card!
+	 * 
+	 * @return
+	 */
+	public ICard<T> copy();
+
 	@Override
 	default int compareTo(ICard<T> o) {
 		if (o == null) {
