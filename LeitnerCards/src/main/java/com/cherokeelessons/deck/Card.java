@@ -133,15 +133,9 @@ public class Card<T extends ICardData> implements ICard<T> {
 	@Override
 	public ICard<T> copy() {
 		Card<T> copy = new Card<>();
-		copy.cardStats.setCorrect(cardStats.isCorrect());
+		copy.cardStats=new CardStats(cardStats);
 		copy.data=(T) data.copy();
-		copy.cardStats.setLeitnerBox(cardStats.getLeitnerBox());
 		copy.myDeck=null;
-		copy.cardStats.setPimsleurSlot(cardStats.getPimsleurSlot());
-		copy.cardStats.setShowAgainDelay_ms(cardStats.getShowAgainDelay_ms());
-		copy.cardStats.setShown(cardStats.getShown());
-		copy.cardStats.setTotalShownTime(cardStats.getTotalShownTime());
-		copy.cardStats.setTriesRemaining(cardStats.getTriesRemaining());
 		return copy;
 	}
 }

@@ -11,6 +11,19 @@ public class CardStats {
 
 	public CardStats() {
 	}
+	
+	public CardStats(CardStats copy) {
+		if (copy==null) {
+			return;
+		}
+		correct=copy.correct;
+		leitnerBox=copy.leitnerBox;
+		pimsleurSlot=copy.pimsleurSlot;
+		showAgainDelay_ms=copy.showAgainDelay_ms;
+		shown=copy.shown;
+		totalShownTime=copy.totalShownTime;
+		triesRemaining=copy.triesRemaining;
+	}
 
 	public boolean isCorrect() {
 		return correct;
