@@ -14,16 +14,31 @@ public class Deck<T extends ICardData> {
 		cards = new ArrayList<>();
 	}
 
+	/**
+	 * Returns {@linkplain ListIterator} for assigned cards.
+	 * 
+	 * @return
+	 */
 	public ListIterator<ICard<T>> cardsIterator() {
 		return cards.listIterator();
 	}
 
+	/**
+	 * Returns {@linkplain List} of assigned cards.
+	 * 
+	 * @return
+	 */
 	public List<ICard<T>> getCards() {
 		return cards;
 	}
 
 	protected List<ICard<T>> cards;
 
+	/**
+	 * Adds card to this deck. Removes card from previous deck (if any).
+	 * 
+	 * @param card
+	 */
 	public void add(ICard<T> card) {
 		if (card.isInDeck()) {
 			card.getMyDeck().remove(card);
@@ -32,6 +47,11 @@ public class Deck<T extends ICardData> {
 		cards.add(card);
 	}
 
+	/**
+	 * Removes card from this deck. Sets card's assigned deck to NULL.
+	 * 
+	 * @param card
+	 */
 	public void remove(ICard<T> card) {
 		card.setMyDeck(null);
 		cards.remove(card);
@@ -75,7 +95,7 @@ public class Deck<T extends ICardData> {
 
 	/**
 	 * Shuffle. (GWT safe method.) <br/>
-	 * Uses same random access algorithm as OpenJDK's
+	 * Uses random access shuffle algorithm based on OpenJDK's
 	 * {@linkplain Collections#shuffle(List, Random)}
 	 */
 	public void shuffle(long seed) {
@@ -94,7 +114,7 @@ public class Deck<T extends ICardData> {
 	}
 
 	/**
-	 * Sort deck using each card's sortKey.
+	 * Sort deck using each card's full sortKey.
 	 */
 	public void sort() {
 		Collections.sort(cards);
@@ -103,8 +123,9 @@ public class Deck<T extends ICardData> {
 	/**
 	 * Sort deck using fixed length prefix of sortKey. <br/>
 	 * Useful when cards are prefixed with a group identifier. First shuffle the
-	 * deck, then sort by the group identifier's length. Each group will be
-	 * shuffled, but the groups will be grouped together in order in the deck.
+	 * deck, then sort by the group identifier's length. Each group will still
+	 * be shuffled, but the groups will be grouped together in order in the
+	 * deck.
 	 */
 	public void sort(final int keyLength) {
 		Collections.sort(cards, new Comparator<ICard<T>>() {
@@ -139,9 +160,10 @@ public class Deck<T extends ICardData> {
 	}
 
 	/**
-	 * Shuffle and sort deck based on the next session it it schedule for.<br/>
-	 * First shuffles the deck, then sorts by the group identifier's length,
-	 * finally sorts by what session the card should be seen in next.
+	 * Order cards in deck based on the next session each card is scheduled
+	 * for.<br/>
+	 * First shuffles the deck, then sorts by the key prefix length, and finally
+	 * sorts by what session the card should be seen in next.
 	 */
 	public void shuffleAndSortForPlay(final int keyLength) {
 		this.shuffle();
