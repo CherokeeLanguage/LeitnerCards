@@ -2,24 +2,26 @@ package com.cherokeelessons.deck;
 
 public class Card<T extends ICardData> implements ICard<T> {
 	
-	protected boolean correct;
 	protected T data;
-	protected int leitnerBox;
 	protected Deck<T> myDeck;
-	protected int pimsleurSlot;
-	protected long showAgainDelay_ms;
-	/*
-	 * For scoring..
-	 */
-	protected int shown;
-	protected float totalShownTime;
-	protected int triesRemaining;
 	
+	protected CardStats cardStats = new CardStats();
+
+	@Override
+	public CardStats getCardStats() {
+		return cardStats;
+	}
+
+	@Override
+	public void setCardStats(CardStats cardStats) {
+		this.cardStats = cardStats;
+	}
+
 	public void resetStats(){
-		correct=true;
-		shown=0;
-		totalShownTime=0f;
-		triesRemaining=0;
+		cardStats.setCorrect(true);
+		cardStats.setShown(0);
+		cardStats.setTotalShownTime(0f);
+		cardStats.setTriesRemaining(0);
 	}
 
 	@Override
@@ -34,7 +36,7 @@ public class Card<T extends ICardData> implements ICard<T> {
 
 	@Override
 	public int getLeitnerBox() {
-		return leitnerBox;
+		return cardStats.getLeitnerBox();
 	}
 
 	@Override
@@ -44,32 +46,32 @@ public class Card<T extends ICardData> implements ICard<T> {
 
 	@Override
 	public int getPimsleurSlot() {
-		return pimsleurSlot;
+		return cardStats.getPimsleurSlot();
 	}
 
 	@Override
 	public long getShowAgainDelay_ms() {
-		return showAgainDelay_ms;
+		return cardStats.getShowAgainDelay_ms();
 	}
 
 	@Override
 	public int getShown() {
-		return shown;
+		return cardStats.getShown();
 	}
 	
 	@Override
 	public float getTotalShownTime() {
-		return totalShownTime;
+		return cardStats.getTotalShownTime();
 	}
 
 	@Override
 	public int getTriesRemaining() {
-		return triesRemaining;
+		return cardStats.getTriesRemaining();
 	}
 
 	@Override
 	public boolean isCorrect() {
-		return correct;
+		return cardStats.isCorrect();
 	}
 
 	@Override
@@ -79,7 +81,7 @@ public class Card<T extends ICardData> implements ICard<T> {
 
 	@Override
 	public void setCorrect(boolean correct) {
-		this.correct = correct;
+		this.cardStats.setCorrect(correct);
 	}
 
 	@Override
@@ -89,7 +91,7 @@ public class Card<T extends ICardData> implements ICard<T> {
 
 	@Override
 	public void setLeitnerBox(int box) {
-		this.leitnerBox = box;
+		this.cardStats.setLeitnerBox(box);
 	}
 
 	@Override
@@ -99,47 +101,47 @@ public class Card<T extends ICardData> implements ICard<T> {
 
 	@Override
 	public void setPimsleurSlot(int slot) {
-		this.pimsleurSlot = slot;
+		this.cardStats.setPimsleurSlot(slot);
 	}
 
 	@Override
 	public void setShowAgainDelay_ms(long showAgainDelay_ms) {
-		this.showAgainDelay_ms = showAgainDelay_ms;
+		this.cardStats.setShowAgainDelay_ms(showAgainDelay_ms);
 	}
 
 	@Override
 	public void setShown(int shown) {
-		this.shown = shown;
+		this.cardStats.setShown(shown);
 	}
 
 	@Override
 	public void setTotalShownTime(float totalShownTime) {
-		this.totalShownTime = totalShownTime;
+		this.cardStats.setTotalShownTime(totalShownTime);
 	}
 
 	@Override
 	public void setTriesRemaining(int triesRemaining) {
-		this.triesRemaining = triesRemaining;
+		this.cardStats.setTriesRemaining(triesRemaining);
 	}
 
 	@Override
 	public String sortKey() {
 		return data.sortKey();
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public ICard<T> copy() {
 		Card<T> copy = new Card<>();
-		copy.correct=correct;
+		copy.cardStats.setCorrect(cardStats.isCorrect());
 		copy.data=(T) data.copy();
-		copy.leitnerBox=leitnerBox;
+		copy.cardStats.setLeitnerBox(cardStats.getLeitnerBox());
 		copy.myDeck=null;
-		copy.pimsleurSlot=pimsleurSlot;
-		copy.showAgainDelay_ms=showAgainDelay_ms;
-		copy.shown=shown;
-		copy.totalShownTime=totalShownTime;
-		copy.triesRemaining=triesRemaining;
+		copy.cardStats.setPimsleurSlot(cardStats.getPimsleurSlot());
+		copy.cardStats.setShowAgainDelay_ms(cardStats.getShowAgainDelay_ms());
+		copy.cardStats.setShown(cardStats.getShown());
+		copy.cardStats.setTotalShownTime(cardStats.getTotalShownTime());
+		copy.cardStats.setTriesRemaining(cardStats.getTriesRemaining());
 		return copy;
 	}
 }

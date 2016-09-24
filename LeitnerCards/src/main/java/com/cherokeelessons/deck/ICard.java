@@ -66,4 +66,7 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 	long getShowAgainDelay_ms();
 
 	String id();
+	
+	CardStats getCardStats();
+	void setCardStats(CardStats cardStats);
 }
