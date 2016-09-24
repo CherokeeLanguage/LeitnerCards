@@ -185,6 +185,32 @@ public class Deck<T extends ICardData> {
 			}
 		});
 	}
+	
+	/**
+	 * Order cards in deck based on the next session each card is scheduled
+	 * for.<br/>
+	 * First shuffles the deck, then sorts by the key prefix length, and finally
+	 * sorts by what session the card should be seen in next.
+	 */
+	public void shuffleThenSortByShowAgainDelay() {
+		final long minute_ms=60000l;
+		shuffle();
+		Collections.sort(cards, new Comparator<ICard<T>>() {
+			@Override
+			public int compare(ICard<T> o1, ICard<T> o2) {
+				if (o1 == o2) {
+					return 0;
+				}
+				if (o1 == null) {
+					return -1;
+				}
+				if (o2 == null) {
+					return 1;
+				}
+				return ((int)(o1.getShowAgainDelay_ms()/minute_ms)) - ((int)(o2.getShowAgainDelay_ms()/minute_ms));
+			}
+		});
+	}
 
 	/**
 	 * Reverse the order of the deck.
