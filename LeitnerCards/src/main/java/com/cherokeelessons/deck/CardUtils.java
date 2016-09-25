@@ -7,7 +7,7 @@ public class CardUtils {
 
 	private static final List<Long> pimsleur_intervals = new ArrayList<Long>();
 	private static final List<Long> sm2_intervals_ms = new ArrayList<Long>();
-	private static final List<Long> sm2_intervals_days = new ArrayList<Long>();
+	private static final List<Integer> sm2_intervals_days = new ArrayList<Integer>();
 
 	static {
 		/*
@@ -32,9 +32,9 @@ public class CardUtils {
 		 * for SM2 gaps in whole days
 		 */
 		days = 4f;
-		sm2_intervals_days.add(1l);
+		sm2_intervals_days.add(1);
 		for (int i = 0; i < 15; i++) {
-			sm2_intervals_days.add((long) Math.ceil(days));
+			sm2_intervals_days.add((int) Math.ceil(days));
 			days *= 1.7f;
 		}
 	}
