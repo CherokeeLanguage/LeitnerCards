@@ -69,17 +69,6 @@ public class Card<T extends ICardData> implements ICard<T> {
 		return copy;
 	}
 
-	protected int nextSessionShow;
-	@Override
-	public int getNextSessionShow() {
-		return nextSessionShow;
-	}
-
-	@Override
-	public void setNextSessionShow(int nextSessionShow) {
-		this.nextSessionShow=nextSessionShow;
-	}
-
 	@Override
 	public int compareTo(ICard<T> o) {
 		if (o == null) {

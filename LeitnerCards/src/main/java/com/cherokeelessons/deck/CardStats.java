@@ -98,4 +98,13 @@ public class CardStats {
 	public void setTriesRemaining(int triesRemaining) {
 		this.triesRemaining = triesRemaining;
 	}
+	
+	protected int nextSessionShow;
+	public int getNextSessionShow() {
+		return nextSessionShow;
+	}
+	public void setNextSessionShow(int nextSessionShow) {
+		this.nextSessionShow=nextSessionShow;
+	}
+
 }

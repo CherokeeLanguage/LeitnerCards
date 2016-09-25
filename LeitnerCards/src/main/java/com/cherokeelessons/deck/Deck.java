@@ -181,7 +181,7 @@ public class Deck<T extends ICardData> {
 				if (o2 == null) {
 					return 1;
 				}
-				return o1.getNextSessionShow() - o2.getNextSessionShow();
+				return o1.getCardStats().getNextSessionShow() - o2.getCardStats().getNextSessionShow();
 			}
 		});
 	}
