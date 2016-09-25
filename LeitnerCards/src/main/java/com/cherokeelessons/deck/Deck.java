@@ -15,8 +15,8 @@ public class Deck<T extends ICardData> {
 	}
 
 	/**
-	 * Returns the next scheduled show time delay for the top card. Returns 0
-	 * if there are no cards, or the topCard is past due.
+	 * Returns the next scheduled show time delay for the top card. Returns 0 if
+	 * there are no cards, or the topCard is past due.
 	 * 
 	 * @return
 	 */
@@ -228,6 +228,30 @@ public class Deck<T extends ICardData> {
 				}
 				return ((int) (o1.getCardStats().getShowAgainDelay_ms() / minute_ms))
 						- ((int) (o2.getCardStats().getShowAgainDelay_ms() / minute_ms));
+			}
+		});
+	}
+
+	/**
+	 * Order cards in deck based on the next session each card is scheduled
+	 * for.<br/>
+	 * First shuffles the deck, then sorts by the next session value.
+	 */
+	public void shuffleThenSortByNextSession() {
+		shuffle();
+		Collections.sort(cards, new Comparator<ICard<T>>() {
+			@Override
+			public int compare(ICard<T> o1, ICard<T> o2) {
+				if (o1 == o2) {
+					return 0;
+				}
+				if (o1 == null) {
+					return -1;
+				}
+				if (o2 == null) {
+					return 1;
+				}
+				return o1.getCardStats().getNextSessionShow() - o2.getCardStats().getNextSessionShow();
 			}
 		});
 	}
