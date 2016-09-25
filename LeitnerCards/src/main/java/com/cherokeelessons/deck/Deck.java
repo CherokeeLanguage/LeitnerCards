@@ -15,6 +15,20 @@ public class Deck<T extends ICardData> {
 	}
 
 	/**
+	 * Returns the next scheduled show time delay for the top card. Returns 0
+	 * if there are no cards, or the topCard is past due.
+	 * 
+	 * @return
+	 */
+	public long getNextShowTime() {
+		if (!hasCards()) {
+			return 0l;
+		}
+		long delay = topCard().getCardStats().getShowAgainDelay_ms();
+		return delay < 0 ? 0 : delay;
+	}
+
+	/**
 	 * Returns {@linkplain ListIterator} for assigned cards.
 	 * 
 	 * @return
