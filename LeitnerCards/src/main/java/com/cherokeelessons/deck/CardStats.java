@@ -12,6 +12,16 @@ public class CardStats {
 	public CardStats() {
 	}
 	
+	public void triesRemainingDec(){
+		if (triesRemaining>0) {
+			triesRemaining--;
+		}
+	}
+	
+	public void triesRemainingInc(){
+		triesRemaining++;
+	}
+	
 	public void leitnerBoxInc() {
 		leitnerBox++;
 	}
