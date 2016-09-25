@@ -71,25 +71,16 @@ public class Deck<T extends ICardData> {
 	 * 
 	 * @return
 	 */
-	public boolean hasNext() {
+	public boolean hasCards() {
 		return cards.size() != 0;
 	}
 
 	/**
-	 * Retrieve and remove the next available card from the deck. <br/>
+	 * Retrieves the next available card from the deck.
 	 * 
 	 * @return
 	 */
-	public ICard<T> next() {
-		return cards.remove(0);
-	}
-
-	/**
-	 * Peek at the next available card on the deck. <br/>
-	 * 
-	 * @return
-	 */
-	public ICard<T> peek() {
+	public ICard<T> topCard() {
 		return cards.get(0);
 	}
 
