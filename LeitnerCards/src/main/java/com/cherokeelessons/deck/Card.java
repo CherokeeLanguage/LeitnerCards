@@ -22,6 +22,7 @@ public class Card<T extends ICardData> implements ICard<T> {
 		cardStats.setCorrect(true);
 		cardStats.setShown(0);
 		cardStats.setTotalShownTime(0f);
+		resetTriesRemaining();
 	}
 
 	@Override
