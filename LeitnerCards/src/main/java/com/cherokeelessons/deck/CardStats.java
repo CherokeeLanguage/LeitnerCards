@@ -12,6 +12,24 @@ public class CardStats {
 	public CardStats() {
 	}
 	
+	public void leitnerBoxInc() {
+		leitnerBox++;
+	}
+	public void leitnerBoxDec() {
+		if (leitnerBox>0) {
+			leitnerBox--;
+		}
+	}
+	
+	public void pimsleurSlotInc() {
+		pimsleurSlot++;
+	}
+	public void pimsleurSlotDec() {
+		if (pimsleurSlot>0) {
+			pimsleurSlot--;
+		}
+	}
+	
 	public CardStats(CardStats copy) {
 		if (copy==null) {
 			return;
