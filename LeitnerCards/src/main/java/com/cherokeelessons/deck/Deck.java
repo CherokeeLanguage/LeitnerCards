@@ -185,20 +185,21 @@ public class Deck<T extends ICardData> {
 			}
 		});
 	}
-	
+
 	/**
-	 * Time-shift all cards by time indicated. (Subtracts ms from each cards' nextShowTime_ms
+	 * Time-shift all cards by time indicated. (Subtracts ms from each cards'
+	 * nextShowTime_ms
 	 * 
 	 * @param currentDeck
 	 */
 	public void updateTimeBy(long delayAdjust_ms) {
-		for (ICard<T> card: cards) {
+		for (ICard<T> card : cards) {
 			CardStats cardStats = card.getCardStats();
-			long showAgainDelay_ms = cardStats.getShowAgainDelay_ms()-delayAdjust_ms;
+			long showAgainDelay_ms = cardStats.getShowAgainDelay_ms() - delayAdjust_ms;
 			cardStats.setShowAgainDelay_ms(showAgainDelay_ms);
 		}
 	}
-	
+
 	/**
 	 * Order cards in deck based on the next session each card is scheduled
 	 * for.<br/>
@@ -206,7 +207,7 @@ public class Deck<T extends ICardData> {
 	 * sorts by what session the card should be seen in next.
 	 */
 	public void shuffleThenSortByShowAgainDelay() {
-		final long minute_ms=60000l;
+		final long minute_ms = 60000l;
 		shuffle();
 		Collections.sort(cards, new Comparator<ICard<T>>() {
 			@Override
@@ -220,7 +221,8 @@ public class Deck<T extends ICardData> {
 				if (o2 == null) {
 					return 1;
 				}
-				return ((int)(o1.getShowAgainDelay_ms()/minute_ms)) - ((int)(o2.getShowAgainDelay_ms()/minute_ms));
+				return ((int) (o1.getCardStats().getShowAgainDelay_ms() / minute_ms))
+						- ((int) (o2.getCardStats().getShowAgainDelay_ms() / minute_ms));
 			}
 		});
 	}

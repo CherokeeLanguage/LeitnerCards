@@ -35,43 +35,8 @@ public class Card<T extends ICardData> implements ICard<T> {
 	}
 
 	@Override
-	public int getLeitnerBox() {
-		return cardStats.getLeitnerBox();
-	}
-
-	@Override
 	public Deck<T> getMyDeck() {
 		return myDeck;
-	}
-
-	@Override
-	public int getPimsleurSlot() {
-		return cardStats.getPimsleurSlot();
-	}
-
-	@Override
-	public long getShowAgainDelay_ms() {
-		return cardStats.getShowAgainDelay_ms();
-	}
-
-	@Override
-	public int getShown() {
-		return cardStats.getShown();
-	}
-	
-	@Override
-	public float getTotalShownTime() {
-		return cardStats.getTotalShownTime();
-	}
-
-	@Override
-	public int getTriesRemaining() {
-		return cardStats.getTriesRemaining();
-	}
-
-	@Override
-	public boolean isCorrect() {
-		return cardStats.isCorrect();
 	}
 
 	@Override
@@ -80,48 +45,13 @@ public class Card<T extends ICardData> implements ICard<T> {
 	}
 
 	@Override
-	public void setCorrect(boolean correct) {
-		this.cardStats.setCorrect(correct);
-	}
-
-	@Override
 	public void setData(T data) {
 		this.data = data;
 	}
 
 	@Override
-	public void setLeitnerBox(int box) {
-		this.cardStats.setLeitnerBox(box);
-	}
-
-	@Override
 	public void setMyDeck(Deck<T> deck) {
 		this.myDeck = deck;
-	}
-
-	@Override
-	public void setPimsleurSlot(int slot) {
-		this.cardStats.setPimsleurSlot(slot);
-	}
-
-	@Override
-	public void setShowAgainDelay_ms(long showAgainDelay_ms) {
-		this.cardStats.setShowAgainDelay_ms(showAgainDelay_ms);
-	}
-
-	@Override
-	public void setShown(int shown) {
-		this.cardStats.setShown(shown);
-	}
-
-	@Override
-	public void setTotalShownTime(float totalShownTime) {
-		this.cardStats.setTotalShownTime(totalShownTime);
-	}
-
-	@Override
-	public void setTriesRemaining(int triesRemaining) {
-		this.cardStats.setTriesRemaining(triesRemaining);
 	}
 
 	@Override
@@ -187,6 +117,6 @@ public class Card<T extends ICardData> implements ICard<T> {
 
 	@Override
 	public void resetTriesRemaining() {
-		setTriesRemaining(getMyNextSessionThreshold());
+		getCardStats().setTriesRemaining(getMyNextSessionThreshold());
 	}
 }

@@ -16,45 +16,18 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 
 	T getData();
 
-	int getLeitnerBox();
-
 	Deck<T> getMyDeck();
 
-	int getPimsleurSlot();
-
-	long getShowAgainDelay_ms();
-
-	int getShown();
-
-	float getTotalShownTime();
-
-	int getTriesRemaining();
-
 	String id();
-
-	boolean isCorrect();
 
 	boolean isInDeck();
 
 	void setCardStats(CardStats cardStats);
 
-	void setCorrect(boolean correct);
-
 	void setData(T data);
-
-	void setLeitnerBox(int box);
 
 	void setMyDeck(Deck<T> deck);
 
-	void setPimsleurSlot(int interval);
-
-	void setShowAgainDelay_ms(long showAgainDelay_ms);
-
-	void setShown(int shown);
-
-	void setTotalShownTime(float totalShownTime);
-	
-	void setTriesRemaining(int triesRemaining);
 	String sortKey();
 
 	boolean equals(ICard<T> obj);

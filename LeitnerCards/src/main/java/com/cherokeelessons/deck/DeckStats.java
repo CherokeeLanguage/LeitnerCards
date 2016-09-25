@@ -8,7 +8,7 @@ public class DeckStats implements Serializable {
 	public static final int JUST_LEARNED_BOX = 1;
 	public static final int PROFICIENT_BOX = 5;
 	private static int StatsVersion = 1;
-	
+
 	public static <T extends ICardData> DeckStats calculateStats(Deck<T> activeDeck) {
 		DeckStats info = new DeckStats();
 		if (activeDeck == null || activeDeck.size() == 0) {
@@ -22,16 +22,16 @@ public class DeckStats implements Serializable {
 
 		int boxsum = 0;
 		for (ICard<T> card : activeDeck.getCards()) {
-			boxsum += (card.getLeitnerBox() > 0 ? card.getLeitnerBox() : 0);
+			CardStats cardStats = card.getCardStats();
+			boxsum += (cardStats.getLeitnerBox() > 0 ? cardStats.getLeitnerBox() : 0);
 		}
-		info.level = SkillLevel.forLevel((int) Math.ceil((double) (boxsum)
-				/ (double) activeDeck.size()));
+		info.level = SkillLevel.forLevel((int) Math.ceil((double) (boxsum) / (double) activeDeck.size()));
 		/*
 		 * Set "fullScore" to sum of all box values found in active deck
 		 */
 		boxsum = 0;
 		for (ICard<T> card : activeDeck.getCards()) {
-			boxsum += card.getLeitnerBox();
+			boxsum += card.getCardStats().getLeitnerBox();
 		}
 		info.fullScore = boxsum;
 
@@ -39,47 +39,50 @@ public class DeckStats implements Serializable {
 		 * Set last score based on timings of most recent session. Cards with
 		 * errors count as "-1" each. Apply "boxlevel" values as bonus points.
 		 */
-		float maxCardScore = 60; //60 seconds max, 1 point per second not used up
+		float maxCardScore = 60; // 60 seconds max, 1 point per second not used
+									// up
 		float score = 0f;
 		boolean perfect = true;
 		for (ICard<T> card : activeDeck.getCards()) {
-			if (card.getShown() == 0) {
+			CardStats cardStats = card.getCardStats();
+			if (cardStats.getShown() == 0) {
 				continue;
 			}
-			if (!card.isCorrect()) {
+			if (!cardStats.isCorrect()) {
 				score -= maxCardScore;
 				perfect = false;
 			}
-			double avgShowTime = card.getTotalShownTime() / (float) card.getShown();
+			double avgShowTime = cardStats.getTotalShownTime() / (float) cardStats.getShown();
 			double cardScore = maxCardScore - avgShowTime;
-			if (cardScore<1) {
-				cardScore=1;
+			if (cardScore < 1) {
+				cardScore = 1;
 			}
-			score += (cardScore + card.getLeitnerBox());
+			score += (cardScore + cardStats.getLeitnerBox());
 		}
 		if (perfect) {
-			score *= 1.1f; //10% percent bonus for perfect runs
+			score *= 1.1f; // 10% percent bonus for perfect runs
 		}
 		info.lastScore = (int) Math.ceil(score);
 		info.perfect = perfect;
 		/*
-		 * Calculate total proficiency with active cards (based on most recent noErrors flag)
+		 * Calculate total proficiency with active cards (based on most recent
+		 * noErrors flag)
 		 */
 		int totalCards = activeDeck.size();
 		int correctCount = 0;
-		for (ICard<T> card: activeDeck.getCards()) {
-			if (card.isCorrect()) {
+		for (ICard<T> card : activeDeck.getCards()) {
+			if (card.getCardStats().isCorrect()) {
 				correctCount++;
 			}
-			info.proficiency=((100*correctCount)/totalCards);
+			info.proficiency = ((100 * correctCount) / totalCards);
 		}
-		
+
 		/*
 		 * How many are "fully learned" out of the active deck?
 		 */
 		info.longTerm = 0;
 		for (ICard<T> card : activeDeck.getCards()) {
-			if (card.getLeitnerBox() >= FULLY_LEARNED_BOX) {
+			if (card.getCardStats().getLeitnerBox() >= FULLY_LEARNED_BOX) {
 				info.longTerm++;
 			}
 		}
@@ -95,7 +98,8 @@ public class DeckStats implements Serializable {
 		 */
 		info.mediumTerm = 0;
 		for (ICard<T> card : activeDeck.getCards()) {
-			if (card.getLeitnerBox() >= PROFICIENT_BOX && card.getLeitnerBox() < FULLY_LEARNED_BOX) {
+			CardStats cardStats = card.getCardStats();
+			if (cardStats.getLeitnerBox() >= PROFICIENT_BOX && cardStats.getLeitnerBox() < FULLY_LEARNED_BOX) {
 				info.mediumTerm++;
 			}
 		}
@@ -106,11 +110,12 @@ public class DeckStats implements Serializable {
 		 */
 		info.shortTerm = 0;
 		for (ICard<T> card : activeDeck.getCards()) {
-			if (card.getLeitnerBox() >= JUST_LEARNED_BOX && card.getLeitnerBox() < PROFICIENT_BOX) {
+			CardStats cardStats = card.getCardStats();
+			if (cardStats.getLeitnerBox() >= JUST_LEARNED_BOX && cardStats.getLeitnerBox() < PROFICIENT_BOX) {
 				info.shortTerm++;
 			}
 		}
-		
+
 		return info;
 	}
 
@@ -121,6 +126,7 @@ public class DeckStats implements Serializable {
 	public static void setStatsVersion(int statsVersion) {
 		StatsVersion = statsVersion;
 	}
+
 	public int activeCards = 0;
 	/**
 	 * The summed "box" values for all active cards
@@ -142,6 +148,7 @@ public class DeckStats implements Serializable {
 	public int shortTerm = 0;
 	private String signature = "";
 	private int version;
+
 	public DeckStats() {
 	}
 
