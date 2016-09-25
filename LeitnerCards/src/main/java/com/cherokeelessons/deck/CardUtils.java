@@ -78,7 +78,7 @@ public class CardUtils {
 	 * @param box
 	 * @return
 	 */
-	public static long getNextSessionIntervalDays(int box) {
+	public static int getNextSessionIntervalDays(int box) {
 		if (box >= sm2_intervals_days.size()) {
 			box = sm2_intervals_days.size() - 1;
 		}
