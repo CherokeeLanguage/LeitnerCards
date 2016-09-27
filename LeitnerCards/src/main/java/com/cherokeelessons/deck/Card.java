@@ -87,25 +87,24 @@ public class Card<T extends ICardData> implements ICard<T> {
 	
 	/**
 	 * How many times a card must be shown in the session. <br>
-	 * The value's pimsleur value must not exceed the sesson length or else the
-	 * card will never be successfully marked as known! <br>
+	 * When using strict pimsleur timings, the pimsleur timing value based on
+	 * maxShows must not exceed 1/2 to 3/4 the session length or else the card
+	 * will never be successfully marked as known! <br>
 	 * 5 minutes sessions can not have a value > 3!
 	 * 
 	 * @return
 	 */
-	protected int getMyNextSessionThreshold() {
+	protected int getMyNextSessionThreshold(int maxShows) {
 		int leitnerBox = getCardStats().getLeitnerBox();
-		if (leitnerBox == 0) {
-			return 3;
+		while (leitnerBox>0 && maxShows>1) {
+			leitnerBox--;
+			maxShows--;
 		}
-		if (leitnerBox == 1) {
-			return 2;
-		}
-		return 1;
+		return maxShows;
 	};
 
 	@Override
-	public void resetTriesRemaining() {
-		getCardStats().setTriesRemaining(getMyNextSessionThreshold());
+	public void resetTriesRemaining(int maxTriesRemaining) {
+		getCardStats().setTriesRemaining(getMyNextSessionThreshold(maxTriesRemaining));
 	}
 }

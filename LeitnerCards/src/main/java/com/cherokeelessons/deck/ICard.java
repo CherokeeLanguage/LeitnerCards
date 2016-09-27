@@ -31,5 +31,5 @@ public interface ICard<T extends ICardData> extends Comparable<ICard<T>> {
 
 	void resetStats();
 
-	void resetTriesRemaining();
+	void resetTriesRemaining(int maxTriesRemaining);
 }
