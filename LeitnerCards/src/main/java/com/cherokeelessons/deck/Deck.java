@@ -99,16 +99,10 @@ public class Deck<T extends ICardData> {
 	}
 
 	/**
-	 * Shuffle. (GWT safe method.) <br/>
-	 * Uses random access shuffle algorithm based on OpenJDK's
-	 * {@linkplain Collections#shuffle(List, Random)}
+	 * Shuffle. <br>
 	 */
 	public void shuffle(long seed) {
-		Random r = new Random(seed);
-		for (int i = cards.size(); i > 1; i--) {
-			int j = r.nextInt(i);
-			cards.set(i - 1, cards.set(j, cards.get(i - 1)));
-		}
+		Collections.shuffle(cards, new Random(seed));
 	}
 
 	/**
@@ -170,25 +164,9 @@ public class Deck<T extends ICardData> {
 	 * First shuffles the deck, then sorts by the key prefix length, and finally
 	 * sorts by what session the card should be seen in next.
 	 */
-	public void shuffleThenSortIntoGroups(final int keyLength) {
+	public void shuffleThenSortIntoPrefixedGroups(final int keyLength) {
 		this.shuffle();
 		this.sort(keyLength);
-
-		Collections.sort(cards, new Comparator<ICard<T>>() {
-			@Override
-			public int compare(ICard<T> o1, ICard<T> o2) {
-				if (o1 == o2) {
-					return 0;
-				}
-				if (o1 == null) {
-					return -1;
-				}
-				if (o2 == null) {
-					return 1;
-				}
-				return o1.getCardStats().getNextSessionShow() - o2.getCardStats().getNextSessionShow();
-			}
-		});
 	}
 
 	/**
