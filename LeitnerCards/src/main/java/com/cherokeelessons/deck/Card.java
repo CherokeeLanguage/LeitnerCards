@@ -96,11 +96,7 @@ public class Card<T extends ICardData> implements ICard<T> {
 	 */
 	protected int getMyNextSessionThreshold(int maxShows) {
 		int leitnerBox = getCardStats().getLeitnerBox();
-		while (leitnerBox>0 && maxShows>1) {
-			leitnerBox--;
-			maxShows--;
-		}
-		return maxShows;
+		return Math.max(maxShows - leitnerBox, 1);
 	};
 
 	@Override
