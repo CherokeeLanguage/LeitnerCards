@@ -8,6 +8,7 @@ public class CardStats {
 	private int shown;
 	private float totalShownTime;
 	private int triesRemaining;
+	private boolean newCard;
 
 	public CardStats() {
 	}
@@ -115,6 +116,14 @@ public class CardStats {
 	}
 	public void setNextSessionShow(int nextSessionShow) {
 		this.nextSessionShow=nextSessionShow;
+	}
+
+	public boolean isNewCard() {
+		return newCard;
+	}
+
+	public void setNewCard(boolean newCard) {
+		this.newCard = newCard;
 	}
 
 }
