@@ -134,6 +134,8 @@ public class DeckStats implements Serializable {
 	public int fullScore = 0;
 
 	public long lastrun;
+	public long nextrun;
+	
 	public int lastScore;
 
 	public SkillLevel level;
