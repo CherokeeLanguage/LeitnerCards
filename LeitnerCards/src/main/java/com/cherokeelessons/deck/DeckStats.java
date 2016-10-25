@@ -128,6 +128,7 @@ public class DeckStats implements Serializable {
 	}
 
 	public int activeCards = 0;
+	public int totalCards = 0;
 	/**
 	 * The summed "box" values for all active cards
 	 */
