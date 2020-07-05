@@ -5,9 +5,9 @@ import java.util.List;
 
 public class CardUtils {
 
-	private static final List<Long> pimsleur_intervals = new ArrayList<Long>();
-	private static final List<Long> sm2_intervals_ms = new ArrayList<Long>();
-	private static final List<Integer> sm2_intervals_days = new ArrayList<Integer>();
+	private static final List<Long> pimsleur_intervals = new ArrayList<>();
+	private static final List<Long> sm2_intervals_ms = new ArrayList<>();
+	private static final List<Integer> sm2_intervals_days = new ArrayList<>();
 
 	static {
 		/*
@@ -21,7 +21,7 @@ public class CardUtils {
 		/*
 		 * for SM2 gaps in ms
 		 */
-		long ms_day = 1000l * 60l * 60l * 24;
+		final long ms_day = 1000l * 60l * 60l * 24;
 		float days = 4f;
 		sm2_intervals_ms.add(ms_day);
 		for (int i = 0; i < 15; i++) {
@@ -41,9 +41,9 @@ public class CardUtils {
 
 	/**
 	 * Pimsleur staggered intervals (powers of 5) seconds as ms
-	 * 
+	 *
 	 * @param correct_in_a_row
-	 * @return
+	 * @return interval gap in ms
 	 */
 	public static long getNextInterval(int correct_in_a_row) {
 		if (correct_in_a_row < 0) {
@@ -57,9 +57,9 @@ public class CardUtils {
 
 	/**
 	 * SM2 staggered intervals (powers of 1.7) days as ms
-	 * 
+	 *
 	 * @param box
-	 * @return
+	 * @return Leitner gap in ms.
 	 */
 	public static long getNextSessionInterval_ms(int box) {
 		if (box >= sm2_intervals_ms.size()) {
@@ -72,11 +72,11 @@ public class CardUtils {
 	}
 
 	/**
-	 * SM2 staggered intervals (powers of 1.7) days. (Rounded up to the next
-	 * whole day). *
-	 * 
+	 * SM2 staggered intervals (powers of 1.7) days. (Rounded up to the next whole
+	 * day). *
+	 *
 	 * @param box
-	 * @return
+	 * @return Leitner gaps as days.
 	 */
 	public static int getNextSessionIntervalDays(int box) {
 		if (box >= sm2_intervals_days.size()) {

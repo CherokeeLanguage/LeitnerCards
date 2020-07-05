@@ -3,7 +3,7 @@ apply plugin: 'maven'
 apply plugin: 'eclipse-wtp'
 
 group "com.github.CherokeeLanguage"
-version = '20161025'
+version = '20200704'
 
 sourceCompatibility = 1.7
 compileJava.options.encoding = 'UTF-8'
@@ -41,14 +41,15 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor 30, 'seconds'
 }
 
-eclipseJdt << {
+eclipseJdt {
+doLast {
     File f = file('.settings/org.eclipse.core.resources.prefs')
     f.write('eclipse.preferences.version=1\n')
     f.append('encoding/<project>=utf-8')
     f = file('.settings/org.eclipse.core.runtime.prefs')
     f.write('eclipse.preferences.version=1\n')
     f.append('line.separator=\\n\n')
-}
+}}
 
 project.afterEvaluate {
 	// use jre lib matching version used by project, not the workspace default
@@ -77,7 +78,6 @@ eclipse {
 
 	classpath {
 		//plusConfigurations += [configurations.provided] //only for web projects
-		containers += ['org.springsource.ide.eclipse.gradle.classpathcontainer']
 		downloadSources = true
 		downloadJavadoc = true
 	}
@@ -95,7 +95,8 @@ eclipse {
 	}
 }
 
-task "create-dirs" << {
+task "create-dirs" {
+doLast{
 	sourceSets*.java.srcDirs*.each { it.mkdirs() }
 	sourceSets*.resources.srcDirs*.each { it.mkdirs() }
-}
+}}

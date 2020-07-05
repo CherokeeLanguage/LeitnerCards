@@ -9,42 +9,42 @@ public class DeckStats implements Serializable {
 	public static final int PROFICIENT_BOX = 5;
 	private static int StatsVersion = 1;
 
-	public static <T extends ICardData> DeckStats calculateStats(Deck<T> activeDeck) {
-		DeckStats info = new DeckStats();
+	public static <T extends ICardData, U extends ICard<T>> DeckStats calculateStats(final Deck<T, U> activeDeck) {
+		final DeckStats info = new DeckStats();
 		if (activeDeck == null || activeDeck.size() == 0) {
 			return info;
 		}
 
 		/*
-		 * Set "level" to ceil(average box value) found in active deck. Negative
-		 * box values are ignored.
+		 * Set "level" to ceil(average box value) found in active deck. Negative box
+		 * values are ignored.
 		 */
 
 		int boxsum = 0;
-		for (ICard<T> card : activeDeck.getCards()) {
-			CardStats cardStats = card.getCardStats();
-			boxsum += (cardStats.getLeitnerBox() > 0 ? cardStats.getLeitnerBox() : 0);
+		for (final ICard<T> card : activeDeck.getCards()) {
+			final CardStats cardStats = card.getCardStats();
+			boxsum += cardStats.getLeitnerBox() > 0 ? cardStats.getLeitnerBox() : 0;
 		}
-		info.level = SkillLevel.forLevel((int) Math.ceil((double) (boxsum) / (double) activeDeck.size()));
+		info.level = SkillLevel.forLevel((int) Math.ceil((double) boxsum / (double) activeDeck.size()));
 		/*
 		 * Set "fullScore" to sum of all box values found in active deck
 		 */
 		boxsum = 0;
-		for (ICard<T> card : activeDeck.getCards()) {
+		for (final ICard<T> card : activeDeck.getCards()) {
 			boxsum += card.getCardStats().getLeitnerBox();
 		}
 		info.fullScore = boxsum;
 
 		/*
-		 * Set last score based on timings of most recent session. Cards with
-		 * errors count as "-1" each. Apply "boxlevel" values as bonus points.
+		 * Set last score based on timings of most recent session. Cards with errors
+		 * count as "-1" each. Apply "boxlevel" values as bonus points.
 		 */
-		float maxCardScore = 60; // 60 seconds max, 1 point per second not used
-									// up
+		final float maxCardScore = 60; // 60 seconds max, 1 point per second not used
+										// up
 		float score = 0f;
 		boolean perfect = true;
-		for (ICard<T> card : activeDeck.getCards()) {
-			CardStats cardStats = card.getCardStats();
+		for (final ICard<T> card : activeDeck.getCards()) {
+			final CardStats cardStats = card.getCardStats();
 			if (cardStats.getShown() == 0) {
 				continue;
 			}
@@ -52,12 +52,12 @@ public class DeckStats implements Serializable {
 				score -= maxCardScore;
 				perfect = false;
 			}
-			double avgShowTime = cardStats.getTotalShownTime() / (float) cardStats.getShown();
+			final double avgShowTime = cardStats.getTotalShownTime() / cardStats.getShown();
 			double cardScore = maxCardScore - avgShowTime;
 			if (cardScore < 1) {
 				cardScore = 1;
 			}
-			score += (cardScore + cardStats.getLeitnerBox());
+			score += cardScore + cardStats.getLeitnerBox();
 		}
 		if (perfect) {
 			score *= 1.1f; // 10% percent bonus for perfect runs
@@ -65,23 +65,23 @@ public class DeckStats implements Serializable {
 		info.lastScore = (int) Math.ceil(score);
 		info.perfect = perfect;
 		/*
-		 * Calculate total proficiency with active cards (based on most recent
-		 * noErrors flag)
+		 * Calculate total proficiency with active cards (based on most recent noErrors
+		 * flag)
 		 */
-		int totalCards = activeDeck.size();
+		final int totalCards = activeDeck.size();
 		int correctCount = 0;
-		for (ICard<T> card : activeDeck.getCards()) {
+		for (final ICard<T> card : activeDeck.getCards()) {
 			if (card.getCardStats().isCorrect()) {
 				correctCount++;
 			}
-			info.proficiency = ((100 * correctCount) / totalCards);
+			info.proficiency = 100 * correctCount / totalCards;
 		}
 
 		/*
 		 * How many are "fully learned" out of the active deck?
 		 */
 		info.longTerm = 0;
-		for (ICard<T> card : activeDeck.getCards()) {
+		for (final ICard<T> card : activeDeck.getCards()) {
 			if (card.getCardStats().getLeitnerBox() >= FULLY_LEARNED_BOX) {
 				info.longTerm++;
 			}
@@ -93,24 +93,24 @@ public class DeckStats implements Serializable {
 		info.activeCards = activeDeck.size() - info.longTerm;
 
 		/*
-		 * How many are "well known" out of the active deck? (excluding full
-		 * learned ones)
+		 * How many are "well known" out of the active deck? (excluding full learned
+		 * ones)
 		 */
 		info.mediumTerm = 0;
-		for (ICard<T> card : activeDeck.getCards()) {
-			CardStats cardStats = card.getCardStats();
+		for (final ICard<T> card : activeDeck.getCards()) {
+			final CardStats cardStats = card.getCardStats();
 			if (cardStats.getLeitnerBox() >= PROFICIENT_BOX && cardStats.getLeitnerBox() < FULLY_LEARNED_BOX) {
 				info.mediumTerm++;
 			}
 		}
 
 		/*
-		 * How many are "short term known" out of the active deck? (excluding
-		 * full learned ones)
+		 * How many are "short term known" out of the active deck? (excluding full
+		 * learned ones)
 		 */
 		info.shortTerm = 0;
-		for (ICard<T> card : activeDeck.getCards()) {
-			CardStats cardStats = card.getCardStats();
+		for (final ICard<T> card : activeDeck.getCards()) {
+			final CardStats cardStats = card.getCardStats();
 			if (cardStats.getLeitnerBox() >= JUST_LEARNED_BOX && cardStats.getLeitnerBox() < PROFICIENT_BOX) {
 				info.shortTerm++;
 			}
@@ -123,7 +123,7 @@ public class DeckStats implements Serializable {
 		return StatsVersion;
 	}
 
-	public static void setStatsVersion(int statsVersion) {
+	public static void setStatsVersion(final int statsVersion) {
 		StatsVersion = statsVersion;
 	}
 
@@ -136,7 +136,7 @@ public class DeckStats implements Serializable {
 
 	public long lastrun;
 	public long nextrun;
-	
+
 	public int lastScore;
 
 	public SkillLevel level;
@@ -155,7 +155,7 @@ public class DeckStats implements Serializable {
 	public DeckStats() {
 	}
 
-	public DeckStats(DeckStats deskStats) {
+	public DeckStats(final DeckStats deskStats) {
 		this.activeCards = deskStats.activeCards;
 		this.level = deskStats.level;
 		this.longTerm = deskStats.longTerm;
@@ -171,11 +171,11 @@ public class DeckStats implements Serializable {
 		return StatsVersion;
 	}
 
-	public void setSignature(String signature) {
+	public void setSignature(final String signature) {
 		this.signature = signature;
 	}
 
-	public void setVersion(int version) {
+	public void setVersion(final int version) {
 		this.version = version;
 	}
 
